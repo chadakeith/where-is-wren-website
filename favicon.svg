@@ -13,7 +13,6 @@
     <ellipse cx="172" cy="132" rx="20" ry="42" transform="rotate(-18 172 132)" fill="#c9463f"/>
     <!-- body -->
     <circle cx="100" cy="122" r="82" fill="#e8655a"/>
-    <circle cx="100" cy="122" r="76" fill="none" stroke="#ef7a6e" stroke-width="3" opacity=".6"/>
     <!-- cheeks -->
     <path d="M56 130c4-7 14-9 20-4 4 4 2 10-4 12-8 2-16 0-16-8z" fill="#cf5450"/>
     <path d="M144 130c-4-7-14-9-20-4-4 4-2 10 4 12 8 2 16 0 16-8z" fill="#cf5450"/>
