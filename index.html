@@ -3,11 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Where is Wren</title>
-<!-- TODO: replace placeholder copy below once app details are finalized -->
-<meta name="description" content="Where is Wren — an iOS app. Coming soon to the App Store.">
-<meta property="og:title" content="Where is Wren">
-<meta property="og:description" content="Where is Wren — an iOS app. Coming soon to the App Store.">
+<title>Where's Wren?</title>
+<meta name="description" content="Where's Wren? is a daily geography hide &amp; seek game for families on iPhone and iPad. Read Wren's postcards, tap the globe, find him in six guesses.">
+<meta property="og:title" content="Where's Wren? · Daily geography hide &amp; seek">
+<meta property="og:description" content="Wren migrates somewhere new every day and leaves postcards as clues. Tap the globe to find him. For iPhone and iPad.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://whereiswren.com/">
 <meta property="og:image" content="https://whereiswren.com/og.png">
@@ -176,6 +175,37 @@
   .card h3 { margin: 0 0 6px; font-size: 18px; }
   .card p { margin: 0; color: var(--ink-2); font-size: 15px; }
 
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: step; }
+  .steps li { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px; position: relative; }
+  .steps .num {
+    display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); color: var(--accent-ink); font-weight: 700; margin-bottom: 14px;
+  }
+  .steps h3 { margin: 0 0 6px; font-size: 18px; }
+  .steps p { margin: 0; color: var(--ink-2); font-size: 15px; }
+
+  .shots {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
+  }
+  .shot {
+    margin: 0; text-align: center;
+  }
+  .shot img {
+    display: block; width: 100%; aspect-ratio: 9 / 19.5; object-fit: cover;
+    border-radius: 28px; background: var(--ink); padding: 6px; box-sizing: border-box;
+    box-shadow: var(--shadow);
+  }
+  .shot figcaption { margin-top: 10px; font-size: 14px; color: var(--ink-2); }
+  .shot img { display: none; }
+  .shot.loaded img { display: block; }
+  .shot.loaded::before { display: none; }
+  .shot::before {
+    content: "Screenshot coming soon";
+    display: grid; place-items: center; text-align: center; padding: 16px;
+    aspect-ratio: 9 / 19.5; border-radius: 28px; border: 1px dashed var(--line);
+    background: var(--bg-2); color: var(--ink-2); font-size: 13px; box-shadow: none;
+  }
+
   .band {
     background: var(--bg-2); border-radius: 28px; padding: 48px 32px; text-align: center;
     margin: 20px 0 60px;
@@ -200,12 +230,19 @@
   footer a { text-decoration: none; margin-right: 18px; }
   footer a:hover { text-decoration: underline; }
 
+  @media (max-width: 1000px) {
+    .shots { grid-template-columns: repeat(3, 1fr); }
+    .shot:nth-child(n+4) { display: none; }
+  }
   @media (max-width: 760px) {
+    .shot:nth-child(n+4) { display: block; }
     .hero { grid-template-columns: 1fr; padding-top: 24px; text-align: center; }
     .lede { margin-left: auto; margin-right: auto; }
     .cta { justify-content: center; }
     .grid { grid-template-columns: 1fr; }
-    nav a { margin-left: 16px; }
+    .steps { grid-template-columns: 1fr; }
+    .shots { grid-template-columns: repeat(2, 1fr); }
+    nav a { margin-left: 14px; font-size: 14px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -226,11 +263,12 @@
   <header>
     <a class="brand" href="/">
       <svg viewBox="0 0 200 250" aria-hidden="true"><use href="#wren"/></svg>
-      Where is Wren
+      Where&rsquo;s Wren?
     </a>
     <nav>
+      <a href="#how">How it works</a>
+      <a href="#screens">Screens</a>
       <a href="#features">Features</a>
-      <a href="#download">Download</a>
       <a href="privacy.html">Privacy</a>
     </nav>
   </header>
@@ -238,18 +276,17 @@
   <main>
     <section class="hero" id="top">
       <div>
-        <span class="eyebrow">iOS app · Coming soon</span>
-        <!-- TODO: placeholder headline & tagline -->
-        <h1>Where is Wren?</h1>
-        <p class="lede">The simple way to answer the question you ask most. Built for iPhone, designed to stay out of your way.</p>
+        <span class="eyebrow">iPhone &amp; iPad · Coming soon</span>
+        <h1>Where&rsquo;s Wren?</h1>
+        <p class="lede">Daily geography hide &amp; seek for families. Wren migrates somewhere new every day and leaves postcards as clues. Tap the globe to find him.</p>
         <div class="cta">
           <a class="btn" href="#download" id="appstore-link" aria-label="Download on the App Store">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.42 2.2-1.24 3.08-.99 1.05-2.19 1.66-3.49 1.55a3.9 3.9 0 0 1-.03-.47c0-1.1.48-2.27 1.33-3.2.42-.48.96-.87 1.61-1.19.65-.3 1.27-.47 1.85-.5.02.23.03.47.03.73zM20.9 17.05c-.34.78-.74 1.5-1.2 2.17-.63.9-1.15 1.53-1.55 1.88-.62.57-1.28.86-1.99.88-.51 0-1.12-.15-1.84-.44-.72-.29-1.38-.44-1.99-.44-.64 0-1.32.15-2.04.44-.72.3-1.31.45-1.75.47-.68.03-1.36-.27-2.04-.9-.43-.38-.98-1.03-1.63-1.96-.7-1-1.28-2.15-1.73-3.47-.48-1.42-.72-2.8-.72-4.13 0-1.52.33-2.84.99-3.94a5.8 5.8 0 0 1 2.07-2.1 5.57 5.57 0 0 1 2.8-.79c.55 0 1.26.17 2.15.5.89.34 1.46.51 1.71.51.19 0 .82-.2 1.9-.6 1.02-.37 1.88-.52 2.58-.46 1.91.15 3.35.91 4.3 2.27-1.71 1.04-2.56 2.49-2.54 4.36.02 1.45.54 2.66 1.57 3.62.47.44.99.79 1.57 1.03-.13.37-.26.72-.41 1.06z"/></svg>
             App Store
           </a>
-          <a class="btn ghost" href="#features">See what it does</a>
+          <a class="btn ghost" href="#how">How it works</a>
         </div>
-        <p class="note" style="margin-top:18px">Requires iOS 17 or later. <!-- TODO: confirm minimum iOS version --></p>
+        <p class="note" style="margin-top:18px">Free to play. iOS 17 or later. No accounts, no ads, nothing leaves your device.</p>
       </div>
       <div class="phone" aria-hidden="true">
         <div class="screen">
@@ -284,31 +321,80 @@
       </div>
     </section>
 
+    <section id="how">
+      <h2>Six guesses. One bird. The whole world.</h2>
+      <p class="sub">Same hidden place for everyone, every day. The game gets easier as you go, so nobody hits a dead end.</p>
+      <ol class="steps">
+        <li>
+          <span class="num">1</span>
+          <h3>Read Wren&rsquo;s postcard</h3>
+          <p>&ldquo;Wish you were here! Six bridges stitch two sides of a wide river together&hellip;&rdquo; Every clue is a postcard in Wren&rsquo;s own voice.</p>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <h3>Tap the globe</h3>
+          <p>Spin a real 3D globe and drop a guess. You get the distance, a compass arrow, and a heat color from cold to hot.</p>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <h3>Miss? Flip another postcard</h3>
+          <p>Each miss unlocks the next clue, from abstract to obvious. Find him in one for glory, or in six and still learn something.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="screens">
+      <h2>Take a look.</h2>
+      <p class="sub">Screens from the iPhone app.</p>
+      <div class="shots">
+        <figure class="shot"><img src="screenshots/01-postcard.png" alt="Today's migration: Wren's first postcard clue above the globe" onload="this.closest('.shot').classList.add('loaded')"><figcaption>Today&rsquo;s migration</figcaption></figure>
+        <figure class="shot"><img src="screenshots/02-guess.png" alt="A guess on the globe showing distance, direction arrow and heat color" onload="this.closest('.shot').classList.add('loaded')"><figcaption>Hot or cold?</figcaption></figure>
+        <figure class="shot"><img src="screenshots/03-found.png" alt="Wren found: result screen with score, share grid and family scoreboard" onload="this.closest('.shot').classList.add('loaded')"><figcaption>You found me!</figcaption></figure>
+        <figure class="shot"><img src="screenshots/04-passport.png" alt="Passport with country stamps grouped by continent and badges" onload="this.closest('.shot').classList.add('loaded')"><figcaption>Passport</figcaption></figure>
+        <figure class="shot"><img src="screenshots/05-flock.png" alt="The Flock leaderboard for today, this week and all time" onload="this.closest('.shot').classList.add('loaded')"><figcaption>The Flock</figcaption></figure>
+      </div>
+    </section>
+
     <section id="features">
-      <h2>Made to be glanced at, not managed.</h2>
-      <p class="sub">A few things Where is Wren does well. <!-- TODO: replace with real features --></p>
+      <h2>Built for the kitchen table.</h2>
+      <p class="sub">Made by a dad for his kids and their friends&rsquo; families. Kind, curious, never snarky.</p>
       <div class="grid">
         <div class="card">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
-          <h3>Always one tap away</h3>
-          <p>Open the app and the answer is right there. No menus, no digging.</p>
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+          <h3>One answer, everyone</h3>
+          <p>Wren is in the same place for the whole world each day, so you can argue about it at dinner.</p>
         </div>
         <div class="card">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
-          <h3>Gentle notifications</h3>
-          <p>Get told when something changes, and only then. Quiet by default.</p>
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.8 2.8 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5z"/><path d="M15 5l4 4"/></svg></div>
+          <h3>Postcards, not trivia</h3>
+          <p>Six clues per place, written from where Wren is standing: the food, the sounds, the view from his perch.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Everyone gets a Wren</h3>
+          <p>Pass the iPad around. Each player picks a name and colorway, keeps their own streak, and joins the family scoreboard.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M3 10h18"/></svg></div>
+          <h3>Passport &amp; badges</h3>
+          <p>A stamp for every country you find, grouped by continent, plus 17 badges to unlock along the way.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M16 6l-4-4-4 4M12 2v13"/></svg></div>
+          <h3>Share your grid</h3>
+          <p>&#x1F426; Where&rsquo;s Wren? #12 · 3/6 and a row of heat emoji. No spoilers, just bragging rights.</p>
         </div>
         <div class="card">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-          <h3>Private by design</h3>
-          <p>Your data stays yours. No accounts to create, nothing sold to anyone.</p>
+          <h3>Nothing leaves your device</h3>
+          <p>No accounts, no ads, no tracking, no third-party code. Rated 4+. Everything is stored on your iPhone or iPad.</p>
         </div>
       </div>
     </section>
 
     <section class="band" id="download">
-      <h2>Be first to know when it launches.</h2>
-      <p>Where is Wren is coming soon to the App Store. Leave your email and we'll send one message when it's live.</p>
+      <h2>Be first to know when Wren takes off.</h2>
+      <p>Where&rsquo;s Wren? is coming to the App Store. Leave your email and we&rsquo;ll send one message when it&rsquo;s live.</p>
       <!-- TODO: wire this form to a real endpoint (Formspree, Buttondown, Mailchimp, etc.) -->
       <form class="signup" action="#" method="post" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thanks!';">
         <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
@@ -318,7 +404,7 @@
   </main>
 
   <footer>
-    <div>© <span id="year"></span> Where is Wren</div>
+    <div>© <span id="year"></span> Where&rsquo;s Wren?</div>
     <div>
       <a href="privacy.html">Privacy</a>
       <a href="mailto:hello@whereiswren.com">Contact</a>
